@@ -1,0 +1,59 @@
+header {
+    width: 100%;
+    margin-bottom: 20px;
+    section{
+        padding: 10px 10px;
+        display: flex;
+        justify-content: space-between;
+        h1{
+            font-weight: 800;
+            font-size: 1.3em;
+        }
+
+        .actions{
+            button{
+                border-radius: 3px;
+                font-size: 0.9em;
+                padding:2px;
+                border:1px solid rgb(201, 201, 201);
+                background-color: rgb(226, 226, 226);
+                margin: 0px 5px;
+            }
+        }
+        p{
+            color: grey;
+        }
+    }
+}
+
+
+//registration components for marketer and influencer mobile-display styles
+.form-content {
+    padding: 0px 20px;
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+        @extend .p3;
+    }
+
+    input {
+        width: 100%;
+        border-radius: 5px !important;
+    }
+
+    .flex-wrap{
+        li{
+            margin: 3px;
+            p{
+                color: white;
+                @extend .p4;
+            }
+        }
+    }
+}

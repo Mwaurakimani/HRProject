@@ -1,0 +1,44 @@
+@use "config";
+
+
+nav {
+    width: 100%;
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+    box-shadow: 0 0 6px grey;
+}
+
+footer{
+    height:300px;
+    background-color: rgb(66, 66, 66);
+}
+
+.spinner-elem{
+    width: 100%;
+    height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .spinner{
+        border-radius: 50%;
+        border-left: 3px orange solid;
+        border-top: 3px orange solid;
+        width: 30px;
+        height: 30px;
+        -webkit-animation:spin 4s linear infinite;
+        -moz-animation:spin 1000ms linear infinite;
+        animation:rotation 1000ms linear infinite;
+
+    }
+
+    @keyframes rotation {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(359deg);
+        }
+    }
+}

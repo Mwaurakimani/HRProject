@@ -1,0 +1,47 @@
+@forward "variables";
+
+@mixin border-radius-default{
+    border-radius: var(--border-radius);
+}
+
+@mixin flex-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin xs-screens{
+    @media only screen and (min-width: 400px) {
+        @content
+    }
+}
+
+@mixin s-screens{
+    @media only screen and (min-width: 730px) {
+        @content
+    }
+}
+
+@mixin m-screens{
+    @media only screen and (min-width: 10240px) {
+        @content
+    }
+}
+
+@mixin n-screens{
+    @media only screen and (min-width: 1366px) {
+        @content
+    }
+}
+
+@mixin l-screens{
+    @media only screen and (min-width: 1920px) {
+        @content
+    }
+}
+
+@mixin xl-screens{
+    @media only screen and (min-width: 2000px) {
+        @content
+    }
+}

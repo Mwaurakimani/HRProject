@@ -1,0 +1,195 @@
+@import "mixin";
+
+
+//Headings
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bolder;
+}
+
+.text-grey-50 {
+    color: #cbcbcb;
+}
+
+.text-grey-100 {
+    color: #8d8d8d;
+}
+
+.text-grey-200 {
+    color: #727272;
+}
+
+.text-grey-300 {
+    color: #545454;
+}
+
+.text-grey-400 {
+    color: #3b3b3b;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.8em;
+}
+
+h3 {
+    font-size: 1.6em;
+}
+
+h4 {
+    font-size: 1.4em;
+}
+
+h5 {
+    font-size: 1.2em;
+}
+
+h6 {
+    font-size: 1em;
+}
+
+
+//Paragraphs
+p {
+    color: #5d5d5d;
+}
+
+.p1 {
+    @extend p;
+    font-size: 1.1em;
+}
+
+.p2 {
+    @extend p;
+    font-size: 1em;
+}
+
+.p3 {
+    @extend p;
+    font-size: 0.9em;
+}
+
+.p4 {
+    @extend p;
+    font-size: 0.8em;
+}
+
+
+//spans
+.span-1 {
+    font-size: 1em;
+}
+
+.span-2 {
+    font-size: 0.9em;
+}
+
+.span-3 {
+    font-size: 0.8em;
+}
+
+
+//default Components
+input, select, textarea {
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 2px solid lightgrey;
+    outline: none;
+    transition: all ease-in 100ms;
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 4px #f5b7f5;
+        border: 2px solid var(--purple);
+    }
+
+    &:optional {
+        margin-right: 10px;
+    }
+}
+
+input, textarea {
+    padding: 7px;
+}
+
+button.purple {
+    padding: 5px;
+    height: fit-content;
+    width: fit-content;
+    background-color: var(--t-purple);
+    color: white;
+    border-radius: 8px;
+}
+
+.align-bottom-c {
+    align-items: flex-end;
+}
+
+.button {
+    padding: 5px;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 8px;
+}
+
+button.pink {
+    @extend .button;
+    background-color: var(--t-pink);
+    color: white;
+}
+
+button.purple {
+    @extend button, .pink;
+    background-color: var(--t-purple);
+}
+
+
+//custom components
+.card {
+    @include border-radius-default;
+}
+
+.card-shadowed {
+    @include border-radius-default;
+    box-shadow: 0 0 6px lightgrey;
+}
+
+/* Ripple effect */
+.ripple {
+    background-position: center;
+    transition: background 0.8s;
+
+    &:hover {
+        background: white radial-gradient(circle, transparent 1%, white 1%) center/15000%;
+    }
+
+    &:active {
+        background-color: var(--light-grey);
+        background-size: 20%;
+        transition: background 10ms;
+    }
+}
+
+.category-pill {
+    padding: 5px 8px;
+    color: white;
+    display: inline-flex;
+    border-radius: 20px;
+    background-color: var(--pink);
+    align-items: center;
+
+    span {
+        width: 15px;
+        height: 15px;
+        text-align: center;
+        line-height: 15px;
+        margin-left: 5px;
+        border-radius: 50%;
+        background-color: var(--pale-red-1);
+    }
+}
+
+
+

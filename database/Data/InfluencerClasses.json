@@ -1,0 +1,77 @@
+[
+    {
+        "name": "Facebook",
+        "classes": [
+            {
+                "name": "Nano-Influencer",
+                "min_count": 1000,
+                "max_count": 10000
+            },
+            {
+                "name": "Micro-Influencer",
+                "min_count": 10000,
+                "max_count": 50000
+            },
+            {
+                "name": "Macro-Influencer",
+                "min_count": 50000,
+                "max_count": 200000
+            },
+            {
+                "name": "Mega-Influencer",
+                "min_count": 200000,
+                "max_count": 1000000
+            }
+        ]
+    },
+    {
+        "name": "Twitter",
+        "classes": [
+            {
+                "name": "Nano-Influencer",
+                "min_count": 1000,
+                "max_count": 10000
+            },
+            {
+                "name": "Micro-Influencer",
+                "min_count": 10000,
+                "max_count": 50000
+            },
+            {
+                "name": "Macro-Influencer",
+                "min_count": 50000,
+                "max_count": 200000
+            },
+            {
+                "name": "Mega-Influencer",
+                "min_count": 200000,
+                "max_count": 1000000
+            }
+        ]
+    },
+    {
+        "name": "Instagram",
+        "classes": [
+            {
+                "name": "Nano-Influencer",
+                "min_count": 1000,
+                "max_count": 10000
+            },
+            {
+                "name": "Micro-Influencer",
+                "min_count": 10000,
+                "max_count": 50000
+            },
+            {
+                "name": "Macro-Influencer",
+                "min_count": 50000,
+                "max_count": 200000
+            },
+            {
+                "name": "Mega-Influencer",
+                "min_count": 200000,
+                "max_count": 1000000
+            }
+        ]
+    }
+]

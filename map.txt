@@ -1,0 +1,276 @@
+
+Create marketer{
+    +first_name
+    +last_name
+    +email
+    +phone
+    +password
+    +confirm password
+    +type
+    +company name
+}
+create a Employer - post:/createEmployer
+
+Employer account{
+    {
+            *user id
+            -+first name
+            -+last name
+            -+(sum) posted projects
+            -+(sum) completed projects
+            -+description
+            -+account status
+    },{
+        -+first name
+        -+last name
+        -+email
+        -+phone
+        -+type
+        -+company name
+    }
+}
+Employee views account - get:/account
+Employee updates account - put:/account
+Employee updates password - put:/updatePassword(api)
+
+Create influencer{
+    +first name
+    +last name
+    +email
+    +phone
+    +password
+    +confirm password
+}
+create influencer - post:/createInfluencer
+
+Influencer Account{
+    {
+            *user id
+            -+image path
+            -(sum) completed projects
+            -+price
+            -+unit
+            -+tags(list)
+            -+description
+            -+account status
+    },{
+        -+facebook username
+        -+facebook user count
+        -+facebook engagement score(agregate)
+        -+verified
+        -+twitter username
+        -+twitter user count
+        -+twitter engagement score(agregate)
+        -+verified
+        -+instagram username
+        -+instagram user count
+        -+instagram engagement score(agregate)
+        -+verified
+    },{
+        -+first name
+        -+last name
+        -+phone
+        -+email
+    }
+}
+Influencer views account - get:/account
+Influencer updates account - put:/account
+Influencer updates Password - put:/updatePassword(api)
+
+Post Jobs{
+    *user id(marketer)
+    -+Title
+    -+Category
+    -+description
+    -+budget
+    -+facebook requirement
+    -+facebook class
+    -+Twitter requirement
+    -+Twitter class
+    -+Instagram requirement
+    -+Instagram class
+    -+location
+    -+notes
+}
+Marketer will post a job - post:/createProject
+
+Posted Projects{
+    *user id (marketer)
+    *filters
+    *sort
+    -list tasks[
+        -title
+        -description
+        -budget
+        -class requirement
+        -(sum)bids
+        -status
+        -(pagination details)
+    ]
+}
+Marketer list posted projects -get:/projects
+
+Find advert{
+    *filters
+    *sort
+    -title
+    -description
+    -budget
+    -class requirement
+    -(sum)bids
+    -status
+    -(pagination details)
+}
+Influencer looks for a job -get :/projectsAvailable
+
+Active tasks{
+    *task id
+    -bids
+    -budget
+    -location
+    -date posted
+    -description
+    -Available influencer[
+        -first name
+        -last name
+        -class
+        -(sum) total projects
+        -price
+        -unit
+    ]
+}
+Influencer selects a task - get:/project/{id}
+Influencer bid for a task -post:/bidProject/{id} (api)
+
+Hire Influencer{
+    *user id (influencer)
+    -first name
+    -last name
+    -facebook user count
+    -twitter user count
+    -instagram user count
+    -(algo) engagement score
+    -(sum) task completed
+    -(sum) rating
+}
+Employer views Biders account - get:/viewBidder/{id}
+Employee hires Influencer - post:/hireBidder/{id}
+
+Current tasks running{
+    *user id (marketer)
+    *filters
+    *sort
+    -list tasks[
+        -title
+        -description
+        -budget
+        -class requirement
+        -(sum)bids
+        -status
+        -(pagination details)
+    ]
+}
+Influencer views Tasks running - get:/myProjects
+
+Work Space{
+    {
+        *user id (marketer)
+        *user id (Influencer)
+        *task id
+        -bids
+        -budget
+        -assignment status
+        -location
+        -date posted
+        -description
+    },
+    -project document[ 
+        -document id
+        -+document type
+        -document name(generated)
+        -+assignment id
+        -date posted
+        ],[conversation
+        -+conversation id
+        -+assignment id
+        -sender(user id[influencer/marketer])
+        -receiver(user id[influencer/marketer])
+        -+message
+        -date sent
+    ]
+}
+Employee opens workspace - get:/project/{id}
+Employee send documents for workspace - *
+Employee sends message - post:/sendMessage/{id}(api) [assignment_id,influencer_id]
+Influencer opens work Space - get:/project/{id}
+Influencer downloads files - *
+Influencer replies back - post:/sendMessage/{id}(api) [assignment_id,influencer_id]
+Employee marks project as completed - post:/marksComplete/{project_id}
+*Employee Rate the influencer - post:/rateProject/{id}
+Influencer marks project as completed - post:/marksComplete/{project_id}
+*Influencer rates Employee - post:/rateProject/{id}
+Credit the Employer - internal function
+Debit the Influencer - internal function
+
+Home page {
+    -Available influencers
+    -first name
+    -last name
+    -class
+    -(sum) total projects
+    -price
+    -unit
+    ==================
+    available tasks
+    -title
+    -description
+    -budget
+    -class requirement
+    -(sum)bids
+    -status
+}
+List all Influencer accounts - get:/
+List all available tasks (ref up)
+
+Finance page{
+    *user id
+    -credit balance
+    -pending balance
+    -pending withdrawal
+    -total credit
+}
+Display credit balance - get:/finance
+
+Log in{
+    +email
+    +password
+}
+Enter log in credentials
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

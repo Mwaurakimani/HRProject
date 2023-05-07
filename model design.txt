@@ -1,0 +1,182 @@
+User{
+    id
+    first_name
+    last_name
+    email
+    phone
+    password
+    status
+
+    marketer{
+        id
+        role
+        type(single/company)
+
+        company{
+            id
+            user_id
+            company_name
+        }
+    },
+
+    Influencer{
+        id
+        role
+        class
+        unit
+        image_path
+        tags
+
+        social_account{
+            id
+            user_id(influencer)
+            platform_id
+            username
+            following
+            status
+        }
+    }
+}
+
+platform{
+    id
+    name
+    link
+
+    influencer_class{
+        id
+        platform_id
+        name
+        min_count
+        max_count
+    }
+}
+
+finance{
+    id
+    user_id
+    credit_balance
+    pending_balance
+    pending_withdrawal
+    pending_deposit
+}
+
+tags{
+    id
+    name
+}
+
+Projects{
+    id
+    title
+    description
+    budget
+    marketer_id
+    location
+    status
+    tags(json)
+
+    class_requirements{
+        id
+        project_id
+        platform_id
+        influencer_class_id
+    }
+
+    bid {
+        id
+        influencer_id
+        project_id
+        bid_amount
+        description
+        status
+
+        Assignment{
+            id
+            bid_id
+            agreed_price
+            marketer_status
+            influencer_status
+            general_status
+
+            media{
+                id
+                type
+                path
+                name
+                assignment_id
+                dates
+            }
+
+            chats{
+                id
+                assignment_id
+                sender_id(user)
+                receiver_id(user)
+                message
+                dates
+            }
+        }
+    }
+}
+===================================================
+TABLES AND MODELS
+--------------------------------------------------
+Users
+Marketers
+Influencer
+SocialAccount
+Platform
+InfluencerClass
+Finance
+Tags
+Projects
+classRequirements
+Bid
+Assignment
+Media
+Chats
+
+===================================================
+CONTROLLER ARCHITECTURE
+--------------------------------------------------
+UsersController
+    *login
+    *logout
+
+
+InfluencerController
+    randomizeInfluencerAccounts
+    
+FinanceController
+    viewCredits
+    addCredits
+    withdrawCredits
+    approveTransaction
+    changeTransactionStatus
+
+ProjectsController
+    influencerListViableProjects
+    -addFilter
+    -sortFilter
+    randomizeProjects
+
+
+AssignmentController
+    marketerHiresInfluencer
+    changeProjectStatus
+    rateProject
+    -creditAccounts
+
+MediaController
+    uploadMedia
+
+ChatsController
+    sendMessage
+
+
+
+
+
+
+
