@@ -12,29 +12,20 @@ function logOut(){
 <template>
   <div class="top-panel-holder">
       <div class="search-bar">
-          <div class="search-section flex items-center justify-center pl-[10px]">
-              <input class="w-[96%]" type="search" placeholder="Search...">
-          </div>
-          <div class="search-dropdown">
+<!--          <div class="search-section flex items-center justify-center pl-[10px]">-->
+<!--              <input class="w-[96%]" type="search" placeholder="Search...">-->
+<!--          </div>-->
+<!--          <div class="search-dropdown">-->
 
-          </div>
+<!--          </div>-->
       </div>
       <div class="account-bar flex items-center">
-          <div>
-              <div class="icon-section" style="position:relative;margin-right: 40px">
-                  <img class="w-[30px] mt-[10px] mx-[5px]" src="/storage/icons8-notification-96.png">
-                  <p class="badge" style="position: absolute;top: 0px;left: 25px">1000</p>
-              </div>
-<!--              <div class=" notification-dropdown w-[200px]" style="background-color: white;box-shadow: 0 0 6px lightgrey;position: absolute; top: 49px;padding: 5px"  >-->
-
-<!--              </div>-->
-          </div>
           <div style="position:relative;" >
               <div class="flex items-center pt-[5px]">
                   <p class="mr-[10px]" >Username</p>
                   <img class="w-[40px]"  style="background-color: grey;border-radius: 50%;padding: 7px" src="/storage/user-icon.png" >
               </div>
-              <div class=" account-dropdown w-[200px]" style="background-color: white;box-shadow: 0 0 6px lightgrey;position: absolute; top: 49px;left:-10px;padding: 5px"  >
+              <div class=" account-dropdown " style="background-color: white;box-shadow: 0 0 6px lightgrey;position: absolute; top: 49px;left:-10px;padding: 5px"  >
                   <ul>
                       <li @click.prevent="logOut">Log Out</li>
                   </ul>
@@ -79,15 +70,14 @@ export default {
     }
 
     .account-bar{
-        width: 250px;
         height: 100%;
-        margin-right: 30px;
-        display: flex;
+        margin-right: 20px;
 
         .notification-dropdown{
             display: none;
         }
         .account-dropdown{
+            width: 150px;
             display: none;
             &>div:last-of-type:hover{
                 display: block;

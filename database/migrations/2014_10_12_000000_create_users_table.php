@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('username');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('phone')->unique();
+            $table->string('identification_number')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('designation')->nullable();
-            $table->decimal('creditBalance',15,2)->default(0);
             $table->timestamps();
         });
     }

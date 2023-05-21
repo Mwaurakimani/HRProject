@@ -10,39 +10,24 @@ const links = reactive({
         {
             name: "dashboard",
             title: "Dashboard",
-            link: "/Admin/Dashboard"
+            link: "/dashboard"
         }
     ],
     section2:[
         {
-            name: "Users",
-            title: "Users",
-            link: "/Admin/Users"
+            name: "Listings",
+            title: "Listings",
+            link: "/Admin/Listings"
         },
         {
-            name: "Projects",
-            title: "Projects",
-            link: "/Admin/Projects"
+            name: "Applications",
+            title: "Applications",
+            link: "/Admin/Applications"
         },
         {
-            name: "Platforms",
-            title: "Platforms",
-            link: "/Admin/Platforms"
-        },
-        {
-            name: "Finance",
-            title: "Finance",
-            link: "/Admin/Finance"
-        },
-        {
-            name: "Media",
-            title: "Media",
-            link: "/Admin/Media"
-        },
-        {
-            name: "Tags",
-            title: "Tags",
-            link: "/Admin/Tags"
+            name: "Account",
+            title: "Account",
+            link: "/Admin/Account"
         },
     ],
     section3:[
@@ -60,7 +45,6 @@ const links = reactive({
 <template>
   <div class="side-navigation">
       <div class="logo-section p-[10px]">
-          <img src="/storage/DESIGN/WORKSPACE/LOGO/SVG/Asset%202md.svg">
       </div>
       <ul>
           <ul>

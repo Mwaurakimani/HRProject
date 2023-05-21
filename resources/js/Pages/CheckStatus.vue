@@ -10,6 +10,11 @@ console.log(currentUser)
 <template>
     <MainPageNav/>
     <div class="container flex flex-wrap" style="justify-content: space-around;gap:15px;">
+        <div class="container p-[20px] mb-[20px]">
+            <input type="text" placeholder="Email">
+            <input type="text" placeholder="ID">
+            <button class="px-[20px] py-[5px]" style="background-color: dodgerblue;color: white" >View Applied Jobs</button>
+        </div>
         <div v-for="item in 20"  class="card-shadowed w-[300px]  h-[330px] p-[15px] bg-white">
             <h5 class="mb-[15px]">Job Title</h5>
             <p class="mb-[20px]">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium amet assumenda facilis ipsam iste

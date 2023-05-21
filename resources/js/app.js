@@ -8,6 +8,7 @@ import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers';
 import {ZiggyVue} from '../../vendor/tightenco/ziggy/dist/vue.m';
 import {createPinia} from 'pinia';
 import Modal from "./Components/Modal.vue";
+import {Link} from '@inertiajs/vue3'
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 const piniaPlugin = createPinia();
@@ -24,6 +25,11 @@ createInertiaApp({
 
 
         return createApp({render: () => h(App, props)})
+            .mixin({
+                components:{
+                    Link:Link
+                }
+            })
             .provide('currentUser',authUser)
             .use(plugin)
             .use(piniaPlugin)

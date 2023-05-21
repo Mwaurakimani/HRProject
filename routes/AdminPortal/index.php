@@ -59,42 +59,25 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/Admin/Dashboard', function () {
-        return Inertia::render('Portal/Dashboard');
-    })->name('AdminDashboard');
+    Route::get('/Admin/Applications', function () {
+        return Inertia::render('Portal/Applications');
+    })->name('AdminApplications');
 
-    Route::get('/Admin/Projects', function () {
-        return Inertia::render('Portal/Projects');
-    })->name('AdminProjects');
+    Route::get('/Admin/Account', function () {
+        $users = User::where('designation','!=','Null')->get();
 
-
-    Route::get('/Admin/Platforms', function () {
-        return Inertia::render('Portal/Platforms');
-    })->name('AdminPlatform');
-
-
-    Route::get('/Admin/Finance', function () {
-        return Inertia::render('Portal/Finance');
-    })->name('AdminFinance');
-
-
-    Route::get('/Admin/Media', function () {
-        return Inertia::render('Portal/Media');
-    })->name('AdminMedia');
-
-
-    Route::get('/Admin/Tags', function () {
-        return Inertia::render('Portal/Tags');
-    })->name('AdminTags');
-
+        return Inertia::render('Portal/Accounts',[
+            'users' => $users,
+        ]);
+    })->name('AdminAccount');
 
     Route::get('/Admin/Settings', function () {
         return Inertia::render('Portal/Settings');
     })->name('AdminSettings');
 
-});
+    include_once "listings.php";
 
-include 'Transactions/index.php';
-include 'Users/index.php';
+
+});
 
 
