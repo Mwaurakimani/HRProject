@@ -15,6 +15,15 @@ return new class extends Migration
     {
         Schema::create('openings', function (Blueprint $table) {
             $table->id();
+            $table->string('Title');
+            $table->text('Description')->nullable();
+            $table->text('About')->nullable();
+            $table->text('Responsibilities')->nullable();
+            $table->text('Qualification')->nullable();
+            $table->text('Education');
+            $table->text('Skills');
+            $table->string('Model');
+            $table->text('Questions')->nullable();
             $table->timestamps();
         });
     }

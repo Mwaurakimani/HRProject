@@ -10,15 +10,23 @@ console.log(currentUser)
 <template>
     <MainPageNav/>
     <div class="container flex flex-wrap" style="justify-content: space-around;gap:15px;">
-        <div v-for="item in 20"  class="card-shadowed w-[300px]  h-[330px] p-[15px] bg-white">
-            <h5 class="mb-[15px]">Job Title</h5>
-            <p class="mb-[20px]">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium amet assumenda facilis ipsam iste
-                laudantium, magnam maxime neque nesciunt nobis optio praesentium quos rerum sapiente ut veniam vero
-                voluptatibus!</p>
-            <Link as="button" :href="route('viewJob',[1])">View</Link>
+        <div v-if="(jobs != undefined) && (jobs != null) && (jobs.length > 0)" v-for="job in jobs"  class="card-shadowed w-[300px]  h-[330px] p-[15px] bg-white">
+            <h5 class="mb-[15px]">{{ job.Title }}</h5>
+            <p class="mb-[20px]">{{ job.Description }}</p>
+            <Link as="button" :href="route('viewJob',[job.id])">View</Link>
         </div>
+        <div class="card-shadowed container  h-[330px] p-[15px] bg-white" style="display: grid;place-items: center">
+            <h5 style="line-height: 40px;text-align: center">There are no job openings available <br> Please Check Later</h5>
+        </div>
+
     </div>
 </template>
+
+<script>
+export default {
+    props:['jobs'],
+}
+</script>
 
 <style lang="scss" scoped>
 @import "./sassLoader";

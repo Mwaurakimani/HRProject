@@ -17,7 +17,10 @@ use Inertia\Inertia;
 |
 */
  Route::get('/', function () {
+     $jobs = \App\Models\Opening::all();
+
      return Inertia::render('Welcome', [
+         'jobs' => $jobs,
          'canLogin' => Route::has('login'),
          'canRegister' => Route::has('register'),
          'laravelVersion' => Application::VERSION,
@@ -51,7 +54,15 @@ Route::get('/checkStatus', function () {
 })->name('checkStatus');
 
 Route::get('/viewJob/{id}', function ($id) {
-    return Inertia::render('ViewJob');
+    $job = \App\Models\Opening::find($id);
+
+    if($job == null){
+        return \Illuminate\Support\Facades\Redirect::back();
+    }
+
+    return Inertia::render('ViewJob',[
+        'job' => $job
+    ]);
 })->name('viewJob');
 
 Route::get('/OceanTest/{id}', function ($id) {

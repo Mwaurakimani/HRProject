@@ -17,7 +17,7 @@ provide('activeSideNavigationLink', 'Users')
             <section>
             </section>
             <section>
-                <button @click.prevent="saveOpening"  >Save</button>
+                <button @click.prevent="saveOpening">Save</button>
             </section>
         </div>
 
@@ -171,7 +171,8 @@ provide('activeSideNavigationLink', 'Users')
 </template>
 
 <script>
-import {useForm} from "@inertiajs/vue3";
+import {router, useForm} from "@inertiajs/vue3";
+import route from "ziggy-js/src/js";
 
 export default {
     props: ['users', 'tag'],
@@ -196,9 +197,9 @@ export default {
                     break;
                 case 'Questions':
                     this.Opening.Questions.push({
-                        Question:this.temp_question.Question,
-                        TestType:this.temp_question.TestType,
-                        ModelTest:this.temp_question.ModelTest
+                        Question: this.temp_question.Question,
+                        TestType: this.temp_question.TestType,
+                        ModelTest: this.temp_question.ModelTest
                     });
                     this.temp_question.Question = null;
                     this.temp_question.TestType = null;
@@ -229,11 +230,11 @@ export default {
                     console.log("Unknown")
             }
         },
-        saveOpening(){
-            axios.post(route('apiSaveOpening',this.Opening)).then((response) => {
-                console.log(response)
+        saveOpening() {
+            axios.post(route('apiSaveOpening', this.Opening)).then((response) => {
+                router.visit(route('ViewListings'))
             }).catch((error) => {
-                alert("Error: " + error)
+                console.log("Error: " + error)
             })
         }
     },

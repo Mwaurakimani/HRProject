@@ -51,3 +51,7 @@ Route::post('/createUSer', function (Request $request) {
 Route::post('/apiSaveOpening', function (Request $request) {
     $response = (new \App\Http\Controllers\OpeningController)->addJobOpening($request);
 })->name('apiSaveOpening');
+
+Route::post('/apiPostApplication/{jobID}', function (Request $request,$jobID) {
+    $response = (new \App\Http\Controllers\JobApplicationController)->makeApplication($request, $jobID);
+})->name('apiPostApplication');

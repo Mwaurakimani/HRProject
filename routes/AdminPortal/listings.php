@@ -10,15 +10,23 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/Admin/Listings', function () {
-        return Inertia::render('Portal/Listings');
-    })->name('AdminDashboard');
+        $jobs = \App\Models\Opening::all();
+
+        return Inertia::render('Portal/Listings',[
+            'jobs' => $jobs
+        ]);
+    })->name('ViewListings');
 
     Route::get('/Admin/CreateJobs', function () {
         return Inertia::render('Portal/Listings/CreateListings');
     })->name('CreateJob');
 
     Route::get('/Admin/ViewListings/{id}', function ($id) {
-        return Inertia::render('Portal/Listings/ViewListings');
+        $job = \App\Models\Opening::find($id);
+
+        return Inertia::render('Portal/Listings/ViewListings',[
+            'job' => $job
+        ]);
     })->name('ViewListing');
 
 });

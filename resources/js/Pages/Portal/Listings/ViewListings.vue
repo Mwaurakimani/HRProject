@@ -10,6 +10,7 @@ provide('activeSideNavigationLink', 'Users')
 </script>
 
 <template>
+    {{ job }}
     <AdminLayout>
         <PageTitle :title="'Listings'">
         </PageTitle>
@@ -23,34 +24,20 @@ provide('activeSideNavigationLink', 'Users')
         <div class="flex flex-wrap" style="gap:10px">
             <section class="w-[69%]">
                 <div class="main-card mb-[30px] card-shadowed bg-white p-[20px]">
-                    <h5 class="text-grey-200">Job Descriptions</h5>
+                    <h5 class="text-grey-200">{{ job.Title }}</h5>
                     <div class="pl-[20px]">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, et impedit maiores obcaecati
-                            quisquam sit velit. Assumenda cupiditate debitis, error ex hic nesciunt officia quam ratione
-                            sapiente soluta voluptas, voluptatum!</p>
+                        <p>{{ job.Description }}</p>
                         <h6>Qualifications</h6>
                         <ul class="pl-[20px]">
-                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab assumenda, at beatae
-                            </li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab assumenda, at beatae
-                            </li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab assumenda, at beatae
-                            </li>
+                            <li v-for="item in JSON.parse(job.Qualification)">{{ item }}</li>
                         </ul>
                         <h6>About Job</h6>
                         <ul class="pl-[20px]">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error ex excepturi ipsum neque!
-                                Consequuntur enim fugit libero officia sapiente! Aliquid doloremque eveniet facilis
-                                necessitatibus odio pariatur qui quia quidem. Asperiores!</p>
+                            <p>{{ job.About }}</p>
                         </ul>
                         <h6>Responsibilities</h6>
                         <ul class="pl-[20px]">
-                            <li>Lorem ipsum dolor sit amet, consectetur
-                            </li>
-                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing eli
-                            </li>
-                            <li>Lorem ipsum dolor sit amet,
-                            </li>
+                            <li v-for="item in JSON.parse(job.Responsibilities)">{{ item }}</li>
                         </ul>
                     </div>
                 </div>
@@ -128,7 +115,7 @@ provide('activeSideNavigationLink', 'Users')
 
 <script>
 export default {
-    props: ['users', 'tag']
+    props: ['users', 'tag','job']
 }
 </script>
 
