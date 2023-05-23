@@ -49,9 +49,62 @@ Route::post('/createUSer', function (Request $request) {
 
 
 Route::post('/apiSaveOpening', function (Request $request) {
-    $response = (new \App\Http\Controllers\OpeningController)->addJobOpening($request);
+    (new \App\Http\Controllers\OpeningController)->addJobOpening($request);
 })->name('apiSaveOpening');
 
 Route::post('/apiPostApplication/{jobID}', function (Request $request,$jobID) {
     $response = (new \App\Http\Controllers\JobApplicationController)->makeApplication($request, $jobID);
+
+    return $response;
 })->name('apiPostApplication');
+
+Route::post('/apiSubmitTest/{jobID}/{applicationID}', function (Request $request,$jobID,$applicationID) {
+    $response = (new \App\Http\Controllers\JobApplicationController)->submitOceanTest($request, $jobID,$applicationID);
+
+    return [
+        'status' => true,
+        'trait' => $response
+    ];
+
+})->name('apiSubmitTest');
+
+Route::post('/getAppliedJobs', function (Request $request) {
+    $response = (new \App\Http\Controllers\JobApplicationController)->getAppliedJobs($request);
+
+    return [
+        'status' => true,
+        'data' => $response
+    ];
+})->name('getAppliedJobs');
+
+Route::post('/approveApplication/{id}',function ($id){
+    $response = (new \App\Http\Controllers\JobApplicationController)->approveApplication($id);
+
+    if($response){
+        return [
+            'status' => true,
+            'message' => 'Approved'
+        ];
+    }else{
+        return [
+            'status' => true,
+            'message' => 'Error updating'
+        ];
+    }
+})->name('apiApproveApplication');
+
+Route::post('/apiRejectApplication/{id}',function ($id){
+    $response = (new \App\Http\Controllers\JobApplicationController)->rejectApplication($id);
+
+    if($response){
+        return [
+            'status' => true,
+            'message' => 'Rejected'
+        ];
+    }else{
+        return [
+            'status' => true,
+            'message' => 'Error updating'
+        ];
+    }
+})->name('apiRejectApplication');

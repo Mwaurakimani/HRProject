@@ -3,6 +3,7 @@
 use App\Models\InfluencerClass;
 use App\Models\Project;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -16,22 +17,22 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
- Route::get('/', function () {
-     $jobs = \App\Models\Opening::all();
+Route::get('/', function () {
+    $jobs = \App\Models\Opening::all();
 
-     return Inertia::render('Welcome', [
-         'jobs' => $jobs,
-         'canLogin' => Route::has('login'),
-         'canRegister' => Route::has('register'),
-         'laravelVersion' => Application::VERSION,
-         'phpVersion' => PHP_VERSION,
-     ]);
- })->name('home');
+    return Inertia::render('Welcome', [
+        'jobs' => $jobs,
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+})->name('home');
 
 Route::middleware([
-     'auth:sanctum',
-     config('jetstream.auth_session'),
-     'verified',
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Portal/Dashboard');
@@ -39,34 +40,48 @@ Route::middleware([
 });
 
 
-
 Route::get('/jobBoard', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return redirect('/');
 })->name('jobBoard');
 
 Route::get('/checkStatus', function () {
     return Inertia::render('CheckStatus');
 })->name('checkStatus');
 
-Route::get('/viewJob/{id}', function ($id) {
-    $job = \App\Models\Opening::find($id);
+Route::get('/viewJob/{id}', function (Request $request,$id) {
 
-    if($job == null){
+    $job = \App\Models\Opening::find($id);
+    $application = null;
+
+    if($request->query('user')){
+        $application = \App\Models\JobApplication::where('opening_id',$job->id)->where('national_id',$request->query('user'))->first();
+
+        if($application == null){
+            return abort('404');
+        }
+    }
+
+    if ($job == null) {
         return \Illuminate\Support\Facades\Redirect::back();
     }
 
-    return Inertia::render('ViewJob',[
-        'job' => $job
+    return Inertia::render('ViewJob', [
+        'job' => $job,
+        'application' => $application
     ]);
 })->name('viewJob');
 
-Route::get('/OceanTest/{id}', function ($id) {
-    return Inertia::render('OceanTest');
+//TODO:: remember to change this to post
+
+Route::match(array('GET', 'POST'), '/OceanTest/{id}/{applicationID}', function ($id,$applicationID) {
+
+    $job = \App\Models\Opening::find($id);
+
+    return Inertia::render('OceanTest', [
+        'job' => $job,
+        'application_id' =>$applicationID
+    ]);
+
 })->name('OceanTest');
 
 Route::get('/CheckStatus/', function () {

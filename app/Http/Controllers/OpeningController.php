@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\JobApplication;
 use App\Models\Opening;
 use Exception;
 use Illuminate\Http\Request;
@@ -36,5 +37,30 @@ class OpeningController extends Controller
         } catch (Exception $e) {
             dump($e->getMessage());
         }
+    }
+
+    public function getOpeningMetaData(Opening $job)
+    {
+        $data = [];
+
+        $applications = JobApplication::where('opening_id', $job->id)->get();
+        $consideredApplications = JobApplication::where('status', 'Approved')->orWhere(function ($query) use ($job){
+            return $query->where('trait', $job->Model)->where('status','<>','rejected');
+        })->get();
+        $unConsideredApplications = JobApplication::where('status', '<>', 'Approved')->orWhere(function ($query) {
+            return $query->where('status', '<>', 'Approved')->where('trait', null);
+        })->where(function ($query) use ($job) {
+            return $query->where('status', 'Rejected');
+        })->get();
+
+        $data['stats']['totalApplications'] = count($applications);
+        $data['stats']['consideredApplications'] = count($consideredApplications);
+        $data['stats']['unconsideredApplications'] = count($applications) - count($consideredApplications);
+
+        $data['data']['consideredApplications'] = $consideredApplications;
+        $data['data']['unconsideredApplications'] = $unConsideredApplications;
+
+
+        return $data;
     }
 }

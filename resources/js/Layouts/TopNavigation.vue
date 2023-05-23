@@ -28,6 +28,7 @@ function logOut(){
               <div class=" account-dropdown " style="background-color: white;box-shadow: 0 0 6px lightgrey;position: absolute; top: 49px;left:-10px;padding: 5px"  >
                   <ul>
                       <li @click.prevent="logOut">Log Out</li>
+                      <Link as="li" :href="'/'">Home</Link>
                   </ul>
               </div>
           </div>

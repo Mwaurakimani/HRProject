@@ -149,20 +149,20 @@ provide('activeSideNavigationLink', 'Users')
                     <h5 class=" h6 mb-[10px]">Ocean Model Requirements</h5>
                     <div class="flex flex-col">
                         <div class="mb-[5px]"><input class="inline-block m-[10px]" type="radio"
-                                                     v-model="Opening.OceanModel" name="model" value="Openness"> <label>Openness</label>
+                                                     v-model="Opening.OceanModel" name="model" value="serious"> <label>Serious</label>
                         </div>
                         <div class="mb-[5px]"><input class="inline-block m-[10px]" type="radio"
                                                      v-model="Opening.OceanModel" name="model"
-                                                     value="conscientiousness"> <label>conscientiousness</label></div>
+                                                     value="lively"> <label>Lively</label></div>
                         <div class="mb-[5px]"><input class="inline-block m-[10px]" type="radio"
-                                                     v-model="Opening.OceanModel" name="model" value="extroversion">
-                            <label>extroversion</label></div>
+                                                     v-model="Opening.OceanModel" name="model" value="responsible">
+                            <label>Responsible</label></div>
                         <div class="mb-[5px]"><input class="inline-block m-[10px]" type="radio"
-                                                     v-model="Opening.OceanModel" name="model" value="agreeableness">
-                            <label>agreeableness</label></div>
+                                                     v-model="Opening.OceanModel" name="model" value="extraverted">
+                            <label>Extraverted</label></div>
                         <div class="mb-[5px]"><input class="inline-block m-[10px]" type="radio"
-                                                     v-model="Opening.OceanModel" name="model" value="neuroticism">
-                            <label>neuroticism</label></div>
+                                                     v-model="Opening.OceanModel" name="model" value="dependable">
+                            <label>Dependable</label></div>
                     </div>
                 </form>
             </section>
@@ -241,46 +241,15 @@ export default {
     data() {
         return {
             Opening: useForm({
-                title: "title",
-                description: "description",
-                qualifications: [
-                    'lorem iprum',
-                    'lorem iprum',
-                    'lorem iprum',
-                ],
-                about: "about",
-                responsibility: [
-                    'lorem iprum',
-                    'lorem iprum',
-                    'lorem iprum',
-                    'lorem iprum',
-                ],
-                EducationRequirement: [
-                    "Bachelors Degree in Information Technology"
-                ],
-                SkillRequirement: [
-                    'Python',
-                    'Excel',
-                    'Photoshop',
-                ],
+                title: null,
+                description: null,
+                qualifications: [],
+                about: null,
+                responsibility: [],
+                EducationRequirement: [],
+                SkillRequirement: [],
                 OceanModel: "conscientiousness",
-                Questions: [
-                    {
-                        Question: "loreminpsun lorem ipsum lorem ipsum",
-                        TestType: 1,
-                        ModelTest: "openness"
-                    },
-                    {
-                        Question: "loreminpsun lorem ipsum lorem ipsum",
-                        TestType: 2,
-                        ModelTest: "openness"
-                    },
-                    {
-                        Question: "loreminpsun lorem ipsum lorem ipsum",
-                        TestType: 3,
-                        ModelTest: "openness"
-                    },
-                ]
+                Questions: []
             }),
             temp_qualification: null,
             temp_responsibility: null,

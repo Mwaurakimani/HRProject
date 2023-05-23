@@ -25,43 +25,6 @@ function applyForJob() {
 </script>
 
 <template>
-    <teleport to="body">
-        <Modal :visible="modal.properties.visible" style="display: grid;place-items: center">
-            <div class="card w-[500px] h-[440px] bg-white mx-[auto]">
-                <div class="flex justify-end p-[10px]">
-                    <span @click.prevent="modal.closeModal()"
-                        style="border-radius: 50%;cursor:pointer;padding-top:3px;display:flex;align-items:center;justify-content:center;width: 20px; height: 20px;line-height: 20px;background-color: red; color: white">X</span>
-                </div>
-                <form @submit.prevent="submitApplication">
-                    <div class="input-group">
-                        <label>First Name</label>
-                        <input type="text" v-model="userData.firstName" >
-                    </div>
-                    <div class="input-group">
-                        <label>Last Name</label>
-                        <input type="text" v-model="userData.lastName" >
-                    </div>
-                    <div class="input-group">
-                        <label>Email</label>
-                        <input type="email" v-model="userData.email" >
-                    </div>
-                    <div class="input-group">
-                        <label>ID</label>
-                        <input type="text" v-model="userData.ID" >
-                    </div>
-                    <div class="input-group">
-                        <label>Age</label>
-                        <input type="number" min="18" v-model="userData.Age" >
-                    </div>
-                    <div class="input-group">
-                        <label>CV</label>
-                        <input type="file">
-                    </div>
-                    <button style="padding:5px 20px;background-color: dodgerblue;color: white;display: block;margin: auto" type="submit" @click.prevent="submitApplication" >Submit</button>
-                </form>
-            </div>
-        </Modal>
-    </teleport>
     <MainPageNav/>
     <div class="container flex" style="justify-content: space-around;gap:15px;">
         <section class="w-[70%] p-[20px] ">
@@ -78,23 +41,69 @@ function applyForJob() {
                 <li v-for="item in JSON.parse(job.Responsibilities)" class="p2">{{ item }}</li>
             </ul>
         </section>
-        <article class="w-[30%] p-[20px]">
-            <button @click="modal.openModal()"
-                    style="display: block;margin: auto;background-color: dodgerblue;color: white;padding: 5px 50px;border-radius: 8px">
-                Apply
+        <article v-if="application == 'undefined' || application == null" class="w-[30%] p-[20px]">
+            <div class=" w-[500px] h-[380px] bg-white mx-[auto]">
+                <form @submit.prevent="submitApplication" enctype="multipart/form-data">
+                    <div class="input-group">
+                        <label>First Name</label>
+                        <input type="text" v-model="userData.firstName">
+                    </div>
+                    <div class="input-group">
+                        <label>Last Name</label>
+                        <input type="text" v-model="userData.lastName">
+                    </div>
+                    <div class="input-group">
+                        <label>Email</label>
+                        <input type="email" v-model="userData.email">
+                    </div>
+                    <div class="input-group">
+                        <label>ID</label>
+                        <input type="text" v-model="userData.ID">
+                    </div>
+                    <div class="input-group">
+                        <label>Age</label>
+                        <input type="number" min="18" v-model="userData.Age">
+                    </div>
+                    <div class="input-group">
+                        <label>Upload CV</label>
+                        <input type="file" @input="userData.cvFile = $event.target.files[0]">
+                    </div>
+                </form>
+            </div>
+            <button @click.prevent="submitApplication" style="display: block;margin: auto;background-color: dodgerblue;color: white;padding: 5px 50px;border-radius: 8px">
+                Apply For Job
             </button>
+        </article>
+        <article v-else class="w-[30%] p-[20px]">
+            <p>Application Status : <span>{{ application.status }}</span></p>
         </article>
     </div>
 </template>
 
 <script>
-import {useForm} from "@inertiajs/vue3";
+import {router, useForm} from "@inertiajs/vue3";
 
 export default {
-    props:['job'],
+    props:['job','application'],
     methods:{
         submitApplication(){
-            axios.post(route('apiPostApplication',[this.job.id]))
+            axios.post(route('apiPostApplication', [this.job.id]), this.userData,  {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(response => {
+                    if (response.data.status == 0){
+                        alert(response.data.message)
+                    } else if (response.data.status == 1){
+                        alert("Some of the Required Skills were not found in your CV")
+                    } else if (response.data.status == 2){
+                        router.post(route('OceanTest',[this.job.id,response.data.application_id]))
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         }
     },
     data(){
@@ -105,6 +114,7 @@ export default {
                 email:"kim@email.com",
                 ID:12345678,
                 Age:18,
+                cvFile:null
             })
         }
     }

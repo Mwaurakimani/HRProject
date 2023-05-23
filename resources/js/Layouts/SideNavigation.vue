@@ -20,23 +20,11 @@ const links = reactive({
             link: "/Admin/Listings"
         },
         {
-            name: "Applications",
-            title: "Applications",
-            link: "/Admin/Applications"
-        },
-        {
             name: "Account",
             title: "Account",
             link: "/Admin/Account"
         },
     ],
-    section3:[
-        {
-            name: "Settings",
-            title: "Setting",
-            link: "/Admin/Settings"
-        },
-    ]
 })
 
 </script>

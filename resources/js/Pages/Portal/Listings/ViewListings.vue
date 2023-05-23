@@ -10,15 +10,10 @@ provide('activeSideNavigationLink', 'Users')
 </script>
 
 <template>
-    {{ job }}
     <AdminLayout>
         <PageTitle :title="'Listings'">
         </PageTitle>
         <div class="flex justify-between mb-[30px] p-[10px]">
-            <section>
-            </section>
-            <section>
-            </section>
         </div>
 
         <div class="flex flex-wrap" style="gap:10px">
@@ -46,9 +41,9 @@ provide('activeSideNavigationLink', 'Users')
                 <div class="card-shadowed bg-white p-[15px]">
                     <h5 class="mb-[10px] text-grey-200 ">Stats</h5>
                     <ul class="pl-[20px]">
-                        <li class="mb-[10px]">Total Applications : {{ 10 }}</li>
-                        <li class="mb-[10px]">Considered Applications : {{ 10 }}</li>
-                        <li class="mb-[10px]">Rejected Applications : {{ 10 }}</li>
+                        <li class="mb-[10px]">Total Applications : {{ data.stats.totalApplications }}</li>
+                        <li class="mb-[10px]">Considered Applications : {{ data.stats.consideredApplications }}</li>
+                        <li class="mb-[10px]">Rejected Applications : {{ data.stats.unconsideredApplications }}</li>
                     </ul>
                 </div>
             </section>
@@ -56,55 +51,50 @@ provide('activeSideNavigationLink', 'Users')
             <section class="w-[100%]" >
                 <h5 class="mb-[20px] text-grey-200 ">Considered Applications</h5>
                 <ul class="flex flex-wrap mb-[30px] gap-[10px]">
-                    <li v-for="item in 10" class="card-shadowed p-[20px] bg-white">
+                    <li v-for="application in data.data.consideredApplications" class="card-shadowed p-[20px] bg-white">
                         <div>
                             <label>Name : </label>
-                            <p>Peter Kimani Mwaura</p>
+                            <p>{{ application.name }}</p>
                         </div>
                         <div>
                             <label>Email : </label>
-                            <p>kimmwaus@email.com</p>
+                            <p>{{ application.email }}</p>
                         </div>
                         <div>
                             <label>ID : </label>
-                            <p>00000000</p>
+                            <p>{{ application.national_id }}</p>
                         </div>
-                        <h6 class="mb-[10px]">Matched Skill</h6>
-                        <ul class="mb-[20px] flex flex-wrap gap-[5px]">
-                            <li class="pill">Test</li>
-                            <li class="pill">Test</li>
-                        </ul>
+<!--                        <h6 class="mb-[10px]">Matched Skill</h6>-->
+<!--                        <ul class="mb-[20px] flex flex-wrap gap-[5px]">-->
+<!--                            <li class="pill">Test</li>-->
+<!--                            <li class="pill">Test</li>-->
+<!--                        </ul>-->
                         <div>
-                            <button>Download CV</button>
-                            <button style="background-color: limegreen">Approve</button>
-                            <button style="background-color: red">Reject</button>
+                            <button @click.prevent="downloadCV(application.cv_path)">Download CV</button>
+                            <button v-if="application.status != 'Approved'" style="background-color: limegreen" @click="approveApplication(application.id)">Approve</button>
+                            <button v-if="application.status != 'Rejected'" style="background-color: red" @click="rejectApplication(application.id)" >Reject</button>
                         </div>
                     </li>
                 </ul>
                 <h5 class="mb-[20px] text-grey-200 ">Rejected Applications</h5>
                 <ul class="flex flex-wrap mb-[30px] gap-[10px]">
-                    <li v-for="i in 7" class="card-shadowed p-[20px] bg-white">
+                    <li v-for="application in data.data.unconsideredApplications" class="card-shadowed p-[20px] bg-white">
                         <div>
                             <label>Name : </label>
-                            <p>Peter Kimani Mwaura</p>
+                            <p>{{ application.name }}</p>
                         </div>
                         <div>
                             <label>Email : </label>
-                            <p>kimmwaus@email.com</p>
+                            <p>{{ application.email }}</p>
                         </div>
                         <div>
                             <label>ID : </label>
-                            <p>00000000</p>
+                            <p>{{ application.national_id }}</p>
                         </div>
-                        <h6 class="mb-[10px]">Unmatched Skill</h6>
-                        <ul class="mb-[20px] flex flex-wrap gap-[5px]">
-                            <li class="pill">Test</li>
-                            <li class="pill">Test</li>
-                        </ul>
                         <div>
-                            <button>Download CV</button>
-                            <button style="background-color: limegreen">Approve</button>
-                            <button style="background-color: red">Reject</button>
+                            <button @click.prevent="downloadCV(application.cv_path)">Download CV</button>
+                            <button v-if="application.status != 'Approved'" style="background-color: limegreen" @click="approveApplication(application.id)">Approve</button>
+                            <button v-if="application.status != 'Rejected'" style="background-color: red" @click="rejectApplication(application.id)" >Reject</button>
                         </div>
                     </li>
                 </ul>
@@ -114,8 +104,39 @@ provide('activeSideNavigationLink', 'Users')
 </template>
 
 <script>
+import {router} from "@inertiajs/vue3";
+
 export default {
-    props: ['users', 'tag','job']
+    props: ['job','data'],
+    methods:{
+        downloadCV(path){
+            const filePath = path;
+            const cleanedPath = filePath.replace("public/", "/storage/");
+
+            const link = document.createElement("a");
+            link.href = cleanedPath;
+            link.download = cleanedPath.split("/").pop(); // Set the downloaded file name
+
+            link.click();
+        },
+        approveApplication(id){
+            axios.post(route('apiApproveApplication',[id])).then((resp) => {
+                alert(resp.data.message)
+                window.location.href = window.location.href
+            }).catch((err) => {
+                alert(err.data.message)
+            })
+
+        },
+        rejectApplication(id){
+            axios.post(route('apiRejectApplication',[id])).then((resp) => {
+                alert(resp.data.message)
+                window.location.href = window.location.href
+            }).catch((err) => {
+                alert(err.data.message)
+            })
+        }
+    }
 }
 </script>
 

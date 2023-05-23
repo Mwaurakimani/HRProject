@@ -24,8 +24,11 @@ Route::middleware([
     Route::get('/Admin/ViewListings/{id}', function ($id) {
         $job = \App\Models\Opening::find($id);
 
+        $data = (new \App\Http\Controllers\OpeningController)->getOpeningMetaData($job);
+
         return Inertia::render('Portal/Listings/ViewListings',[
-            'job' => $job
+            'job' => $job,
+            'data' => $data
         ]);
     })->name('ViewListing');
 

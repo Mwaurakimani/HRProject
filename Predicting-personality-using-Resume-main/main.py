@@ -43,7 +43,6 @@ class RequestBody(BaseModel):
 @app.post("/process_trait")
 async def process(RequestBody: RequestBody):
     if RequestBody is not None:
-
         name = RequestBody.name
         age = RequestBody.age
         gender = RequestBody.gender
@@ -93,18 +92,17 @@ async def process(file: UploadFile):
     skills = extract_skills(file)
 
     cvData = {
-        'phone': phone,
         'skills': skills
     }
 
     return {
-        "cvData":cvData
+        "cvData": cvData
     }
 
 
 class train_model:
     def train(self):
-        data = pd.read_csv('training_dataset.csv')
+        data = pd.read_csv('training_dataset1.csv')
         array = data.values
 
         for i in range(len(array)):
@@ -206,3 +204,5 @@ def extract_skills(input_text):
 if __name__ == "__main__":
     model = train_model()
     model.train()
+
+# uvicorn main:app --host 0.0.0.0 --port 8080 --reload
